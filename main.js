@@ -115,12 +115,11 @@ cardsContainer.addEventListener('click', (e) => {
 		const {
 			cardId,
 		} = e.target.parentElement.parentElement.parentElement.dataset;
+
 		editTodoForm.parentElement.classList.add('active');
 
-		//find card that will be edited
 		let cardToEditIndex = cards.findIndex(({ _id }) => _id === cardId);
 
-		//load card details into form
 		editTodoForm.task.value = cards[cardToEditIndex].cardOwner;
 		editTodoForm.todo.value = cards[cardToEditIndex].todo;
 
@@ -128,13 +127,9 @@ cardsContainer.addEventListener('click', (e) => {
 			e.preventDefault();
 			const updatedTaskNameId = editTodoForm.task.value;
 			const updatedTodo = editTodoForm.todo.value;
-
+			console.table(updatedTaskNameId);
 			const newCard = createNewCard(updatedTaskNameId, updatedTodo);
-			editTodoForm.task.value = '';
-			editTodoForm.todo.value = '';
-			editTodoForm.parentElement.classList.remove('active');
 			cards[cardToEditIndex] = newCard;
-
 			saveToLocalStorageAndRender();
 		});
 	}
@@ -150,6 +145,7 @@ function createNewTask(newTaskName) {
 }
 
 function createNewCard(newTaskNameId, newTodo) {
+	console.log(newTaskNameId);
 	const { task, color } = tasks.find(({ _id }) => _id === newTaskNameId);
 	return {
 		cardOwner: newTaskNameId,
@@ -207,56 +203,26 @@ function clearChildElements(element) {
 }
 
 function renderTasks() {
-	// Create sidebar li
-	const sidebarItem = document.createElement('li');
-	sidebarItem.dataset.taskId = null;
-	sidebarItem.classList.add('sidebar-item');
-	sidebarItem.innerText = 'View All';
-	if (selectedTaskId === null || selectedTaskId === 'null') {
-		sidebarItem.style.fontWeight = '600';
-	}
-
-	tasksContainer.append(sidebarItem);
+	tasksContainer.innerHTML += `<li class="sidebar-item" style="${
+		(null || 'null') === selectedTaskId && `font-weight: 600;`
+	}" data-task-id=null>View All</li>`;
 
 	tasks.forEach(({ _id, task, color }) => {
-		// Create sidebar li
-		const sidebarItem = document.createElement('li');
-		sidebarItem.dataset.taskId = _id;
-		sidebarItem.classList.add('sidebar-item');
-		sidebarItem.innerText = task;
-		if (selectedTaskId === _id) {
-			sidebarItem.style.fontWeight = '600';
-		}
-
-		// create sidebar color
-		const sidebarColor = document.createElement('input');
-		sidebarColor.classList.add('sidebar-color');
-		sidebarColor.setAttribute('type', 'color');
-		sidebarColor.value = color;
-
-		// append color selector to sidebarItem
-		sidebarItem.appendChild(sidebarColor);
-
-		// append sidebarItem to sidebarList
-		tasksContainer.appendChild(sidebarItem);
+		tasksContainer.innerHTML += `
+		<li class="sidebar-item" style="${
+			selectedTaskId === _id && `font-weight: 600;`
+		}" data-task-id=${_id}>${task}<input class="sidebar-color" type="color" value=${color}></li>`;
 	});
 }
 
 function renderTodoFormOptions() {
-	// creates a default option
-	const option = document.createElement('option');
-	option.innerText = 'Select a task';
-	option.setAttribute('value', '');
-	newTodoSelect.appendChild(option);
-	editTodoSelect.appendChild(option.cloneNode(true));
+	newTodoSelect.innerHTML += `<option value="">Select a task</option>`;
+	editTodoSelect.innerHTML += `<option value="">Select a task</option>`;
 
 	// Creates dynamic options
 	tasks.forEach(({ _id, task, color }) => {
-		const option = document.createElement('option');
-		option.innerText = task;
-		option.setAttribute('value', _id);
-		newTodoSelect.appendChild(option);
-		editTodoSelect.appendChild(option.cloneNode(true));
+		newTodoSelect.innerHTML += `<option value=${_id}>${task}</option>`;
+		editTodoSelect.innerHTML += `<option value=${_id}>${task}</option>`;
 	});
 }
 
@@ -282,42 +248,21 @@ function renderCards() {
 	}
 
 	cardsToRender.forEach(({ cardOwner, _id, task, todo, color }) => {
-		// create main card
-		const cardElement = document.createElement('div');
-		cardElement.classList.add('card');
-		cardElement.style.borderTop = `6px solid ${color}`;
-		cardElement.dataset.cardId = _id;
-
-		// create content div
-		const cardContent = document.createElement('div');
-		cardContent.classList.add('card-content');
-
-		// create card tag
-		const cardCategory = document.createElement('div');
-		cardCategory.classList.add('card-tag');
-		cardCategory.innerText = task;
-		cardCategory.style.backgroundColor = convertHexToRGBA(color, 15);
-		cardCategory.style.color = color;
-
-		// create main description for card
-		const cardDescription = document.createElement('div');
-		cardDescription.classList.add('card-description');
-		cardDescription.innerText = todo;
-
-		// create main options
-		const mainOptions = document.createElement('div');
-		mainOptions.classList.add('card-actions');
-		mainOptions.innerHTML += `
-	        <i class="far fa-edit"></i>
-	        <i class="far fa-trash-alt"></i>
-	    `;
-
-		// Build the card
-		cardElement.appendChild(cardContent);
-		cardContent.appendChild(cardCategory);
-		cardContent.appendChild(cardDescription);
-		cardContent.appendChild(mainOptions);
-		cardsContainer.appendChild(cardElement);
+		cardsContainer.innerHTML += `
+			<div class="card" data-card-id=${_id} style="border-color: ${color}">
+				<div class="card-content">
+					<div class="card-tag" style="background-color: ${convertHexToRGBA(
+						color,
+						15
+					)}; color: ${color};">${task}</div>
+					<div class="card-description">${todo}</div>
+					<div class="card-actions">
+						<i class="far fa-edit"></i>
+						<i class="far fa-trash-alt"></i>
+					</div>
+				</div>
+			</div>
+		`;
 	});
 }
 
