@@ -11,18 +11,23 @@
 			integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
 			crossorigin="anonymous"
 		/>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.6.1/randomColor.min.js"
+			integrity="sha512-vPeZ7JCboHcfpqSx5ZD+/jpEhS4JpXxfz9orSvAPPj0EKUVShU2tgy7XkU+oujBJKnWmu4hU7r9MMQNWPfXsYw=="
+			crossorigin="anonymous"
+		></script>
 		<title>TodoList</title>
 	</head>
 	<body>
 		<div class="project-wrapper">
 			<aside class="sidebar">
 				<header class="header header-primary">
-					<h1 class="header-title">My Task</h1>
+					<h1 class="header-title">My Categories</h1>
 					<div class="form-container">
-						<form class="form-inline" data-new-task-form>
+						<form class="form-inline" data-new-category-form>
 							<input
 								type="text"
-								data-new-task-input
+								data-new-category-input
 								placeholder="Add New Task"
 								class="form-control px-0"
 							/>
@@ -33,43 +38,44 @@
 					</div>
 				</header>
 				<div class="alert" data-new-task-alert></div>
-				<ul class="sidebar-list" data-tasks></ul>
+				<ul class="sidebar-list" data-categories></ul>
 			</aside>
 			<main class="main">
 				<header
 					class="header header-secondary d-flex justify-content-between align-items-center"
 				>
-					<h1 class="header-title">
-						Welcome Back, <strong>Noel</strong>
-						<div>
-							<small
-								style="font-size: 0.8rem"
-								data-current-viewing-task
-							></small>
-						</div>
-					</h1>
-					<button class="btn btn-primary" data-new-todo-form-toggler>
+					<div>
+						<h1 class="header-title">
+							Welcome Back, <strong>Noel</strong>
+						</h1>
+
+						<div
+							style="font-size: 0.8rem; display: inline-block"
+							data-currently-viewing
+						></div>
+					</div>
+
+					<button class="btn btn-primary" data-new-todo-toggler>
 						<i class="fa fa-plus" aria-hidden="true"></i>
-						Add New Todo
+						Add Todo
 					</button>
 				</header>
 				<!-- Create todo form -->
 				<div class="main-form-container">
 					<form class="form-inline" data-new-todo-form>
 						<div class="form-group mr-5">
-							<label for="task">Task :</label>
+							<label>Task :</label>
 							<select
-								name="task"
 								data-new-todo-select
 								class="form-control"
 								required
 							></select>
 						</div>
 						<div class="form-group">
-							<label for="todo">Todo :</label>
+							<label>Todo :</label>
 							<input
 								type="text"
-								name="todo"
+								data-new-todo-input
 								class="form-control"
 								placeholder="Enter todo..."
 								required
@@ -88,7 +94,6 @@
 						<div class="form-group mr-5">
 							<label for="task">Task :</label>
 							<select
-								name="task"
 								data-edit-todo-select
 								class="form-control"
 								required
@@ -98,7 +103,7 @@
 							<label for="todo">Todo :</label>
 							<input
 								type="text"
-								name="todo"
+								data-edit-todo-input
 								class="form-control"
 								placeholder="Enter todo..."
 								required
@@ -107,7 +112,7 @@
 
 						<button class="btn btn-primary ml-auto">Save</button>
 
-						<button class="btn btn-primary ml-2">Cancel</button>
+						<!-- <button class="btn btn-primary ml-2">Cancel</button> -->
 					</form>
 				</div>
 				<!-- Cards Section -->

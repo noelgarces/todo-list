@@ -1,269 +1,270 @@
 // *==================== Selectors ====================
-const newTaskForm = document.querySelector('[data-new-task-form]');
-const newTaskInput = document.querySelector('[data-new-task-input]');
-const newTaskAlert = document.querySelector('[data-new-task-alert]');
-const tasksContainer = document.querySelector('[data-tasks]');
-const currentViewingTask = document.querySelector(
-	'[data-current-viewing-task]'
-);
-const newTodoFormToggler = document.querySelector(
-	'[data-new-todo-form-toggler]'
-);
+const newCategoryForm = document.querySelector('[data-new-category-form]');
+const newCategoryInput = document.querySelector('[data-new-category-input]');
+
+const categoriesContainer = document.querySelector('[data-categories]');
+
+const currentlyViewing = document.querySelector('[data-currently-viewing]');
+
+const newTodoFormToggler = document.querySelector('[data-new-todo-toggler]');
 const newTodoForm = document.querySelector('[data-new-todo-form]');
 const newTodoSelect = document.querySelector('[data-new-todo-select]');
+const newTodoInput = document.querySelector('[data-new-todo-input]');
+
 const editTodoForm = document.querySelector('[data-edit-todo-form]');
 const editTodoSelect = document.querySelector('[data-edit-todo-select]');
-const cardsContainer = document.querySelector('[data-cards]');
+const editTodoInput = document.querySelector('[data-edit-todo-input]');
+
+const todosContainer = document.querySelector('[data-cards]');
 
 // *==================== Varaibles ====================
-const LOCAL_STORAGE_TASKS_KEY = 'LOCAL_STORAGE_TASKS_KEY';
-const LOCAL_STORAGE_CARDS_KEY = 'LOCAL_STORAGE_CARDS_KEY';
-const LOCAL_STORAGE_SELECTED_TASK_ID_KEY = 'LOCAL_STORAGE_SELECTED_TASK_ID_KEY';
-let tasks = JSON.parse(localStorage.getItem(LOCAL_STORAGE_TASKS_KEY)) || [];
-let cards = JSON.parse(localStorage.getItem(LOCAL_STORAGE_CARDS_KEY)) || [];
-let selectedTaskId = localStorage.getItem(LOCAL_STORAGE_SELECTED_TASK_ID_KEY);
+const LOCAL_STORAGE_CATEGORIES_KEY = 'LOCAL_STORAGE_CATEGORIES_KEY';
+const LOCAL_STORAGE_TODOS_KEY = 'LOCAL_STORAGE_TODOS_KEY';
+const LOCAL_STORAGE_SELECTED_CATEGORY_ID_KEY =
+	'LOCAL_STORAGE_SELECTED_CATEGORY_ID_KEY';
+let selectedCategoryId = localStorage.getItem(
+	LOCAL_STORAGE_SELECTED_CATEGORY_ID_KEY
+);
+
+let categories =
+	JSON.parse(localStorage.getItem(LOCAL_STORAGE_CATEGORIES_KEY)) || [];
+let todos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_TODOS_KEY)) || [];
 
 // *==================== Event Listeneres ====================
-newTaskForm.addEventListener('submit', (e) => {
+// EVENT: Add Category
+newCategoryForm.addEventListener('submit', (e) => {
 	e.preventDefault();
-	const newTaskName = newTaskInput.value;
-
-	const isTaskEmpty = !newTaskName || !newTaskName.trim().length;
-	if (isTaskEmpty) {
-		newTaskAlert.innerText = 'Please enter a task';
-		newTaskAlert.classList.add('alert-danger');
-		newTaskAlert.classList.add('active');
-
-		setTimeout(() => {
-			newTaskAlert.innerText = '';
-			newTaskAlert.classList.remove('alert-danger');
-			newTaskAlert.classList.remove('active');
-		}, 2000);
-
-		return newTaskAlert;
+	const categoryName = newCategoryInput.value;
+	const isCategoryEmpty = !categoryName || !categoryName.trim().length;
+	if (isCategoryEmpty) {
+		return console.log('please enter a task');
 	}
 
-	const newTask = createNewTask(newTaskName);
-	newTaskAlert.innerText = 'Successfully created task';
-	newTaskAlert.classList.add('alert-success');
-	newTaskAlert.classList.add('active');
-	tasks.push(newTask);
+	categories.push({
+		_id: Date.now().toString(),
+		category: categoryName,
+		color: randomColor({
+			luminosity: 'bright',
+		}),
+	});
 
-	setTimeout(() => {
-		newTaskAlert.innerText = '';
-		newTaskAlert.classList.remove('alert-success');
-		newTaskAlert.classList.remove('active');
-	}, 2000);
+	newCategoryInput.value = '';
 
-	newTaskInput.value = '';
-
-	saveToLocalStorageAndRender();
+	saveAndRender();
 });
 
-tasksContainer.addEventListener('change', (e) => {
-	if (e.target.tagName.toLowerCase() === 'input') {
-		const newTaskColor = e.target.value;
-		const taskId = e.target.parentElement.dataset.taskId;
-		updateTaskAndCardColor(newTaskColor, taskId);
-		saveToLocalStorageAndRender();
-	}
-});
-
-tasksContainer.addEventListener('click', (e) => {
+// EVENT: Get Selected Category Id
+categoriesContainer.addEventListener('click', (e) => {
 	if (e.target.tagName.toLowerCase() === 'li') {
-		selectedTaskId = e.target.dataset.taskId;
-		saveToLocalStorageAndRender();
+		if (!e.target.dataset.categoryId) {
+			selectedCategoryId = null;
+		} else {
+			selectedCategoryId = e.target.dataset.categoryId;
+		}
+		saveAndRender();
 	}
 });
 
-currentViewingTask.addEventListener('click', (e) => {
+// EVENT: Get Selected Category Color
+categoriesContainer.addEventListener('change', (e) => {
+	if (e.target.tagName.toLowerCase() === 'input') {
+		const newCategoryColor = e.target.value;
+		const categoryId = e.target.parentElement.dataset.categoryId;
+
+		const categoryToEdit = categories.find(
+			(category) => category._id === categoryId
+		);
+
+		categoryToEdit.color = newCategoryColor;
+
+		saveAndRender();
+	}
+});
+
+// EVENT: Delete Selected Category
+currentlyViewing.addEventListener('click', (e) => {
 	if (e.target.tagName.toLowerCase() === 'span') {
-		tasks = tasks.filter((task) => task._id !== selectedTaskId);
-		cards = cards.filter((card) => card.cardOwner !== selectedTaskId);
+		categories = categories.filter(
+			(category) => category._id !== selectedCategoryId
+		);
+		todos = todos.filter((todo) => todo.categoryId !== selectedCategoryId);
+		selectedCategoryId = null;
 
-		selectedTaskId = 'null';
-		saveToLocalStorageAndRender();
+		saveAndRender();
 	}
 });
 
+// EVENT: Toggle Add Todo Form
 newTodoFormToggler.addEventListener('click', () => {
 	newTodoForm.parentElement.classList.toggle('active');
+
+	if (!newTodoForm.parentElement.classList.contains('active')) {
+		newTodoFormToggler.innerHTML = `<i class="fa fa-plus" aria-hidden="true"></i> Add Todo`;
+	} else {
+		newTodoFormToggler.innerHTML = `<i class="fas fa-times"></i> Cancel`;
+	}
 });
 
+// EVENT: Add Todo
 newTodoForm.addEventListener('submit', (e) => {
 	e.preventDefault();
-	const newTaskNameId = newTodoForm.task.value;
-	const newTodo = newTodoForm.todo.value;
-	const newCard = createNewCard(newTaskNameId, newTodo);
-	cards.unshift(newCard);
-
-	newTodoForm.task.value = '';
-	newTodoForm.todo.value = '';
-
-	saveToLocalStorageAndRender();
+	todos.push({
+		_id: Date.now().toString(),
+		categoryId: newTodoSelect.value,
+		todo: newTodoInput.value,
+	});
+	newTodoSelect.value = '';
+	newTodoInput.value = '';
+	saveAndRender();
 });
 
-cardsContainer.addEventListener('click', (e) => {
-	if (e.target.classList[1] === 'fa-trash-alt') {
-		const {
-			cardId,
-		} = e.target.parentElement.parentElement.parentElement.dataset;
-		cards = cards.filter(({ _id }) => _id !== cardId);
-		saveToLocalStorageAndRender();
-	}
+// EVENT: Load Edit Todo Form With Values
+let todoToEdit = null;
+todosContainer.addEventListener('click', (e) => {
 	if (e.target.classList[1] === 'fa-edit') {
-		const {
-			cardId,
-		} = e.target.parentElement.parentElement.parentElement.dataset;
-
 		editTodoForm.parentElement.classList.add('active');
 
-		let cardToEditIndex = cards.findIndex(({ _id }) => _id === cardId);
+		todoToEdit = todos.find(
+			(todo) => todo._id === e.target.dataset.editTodo
+		);
 
-		editTodoForm.task.value = cards[cardToEditIndex].cardOwner;
-		editTodoForm.todo.value = cards[cardToEditIndex].todo;
-
-		editTodoForm.addEventListener('submit', (e) => {
-			e.preventDefault();
-			const updatedTaskNameId = editTodoForm.task.value;
-			const updatedTodo = editTodoForm.todo.value;
-			console.table(updatedTaskNameId);
-			const newCard = createNewCard(updatedTaskNameId, updatedTodo);
-			cards[cardToEditIndex] = newCard;
-			saveToLocalStorageAndRender();
-		});
+		editTodoSelect.value = todoToEdit.categoryId;
+		editTodoInput.value = todoToEdit.todo;
 	}
+	if (e.target.classList[1] === 'fa-trash-alt') {
+		const todoToDeleteIndex = todos.findIndex(
+			(todo) => todo._id === e.target.dataset.deleteTodo
+		);
+
+		todos.splice(todoToDeleteIndex, 1);
+
+		saveAndRender();
+	}
+});
+
+// EVENT: Update The Todo Being Edited With New Values
+editTodoForm.addEventListener('submit', function (e) {
+	e.preventDefault();
+
+	todoToEdit.categoryId = editTodoSelect.value;
+	todoToEdit.todo = editTodoInput.value;
+
+	editTodoForm.parentElement.classList.remove('active');
+
+	editTodoSelect.value = '';
+	editTodoInput.value = '';
+
+	saveAndRender();
 });
 
 // *==================== Functions ====================
-function createNewTask(newTaskName) {
-	return {
-		_id: Date.now().toString(),
-		task: newTaskName,
-		color: generateColor(),
-	};
-}
 
-function createNewCard(newTaskNameId, newTodo) {
-	console.log(newTaskNameId);
-	const { task, color } = tasks.find(({ _id }) => _id === newTaskNameId);
-	return {
-		cardOwner: newTaskNameId,
-		_id: Date.now().toString(),
-		task: task,
-		todo: newTodo,
-		color: color,
-	};
-}
-
-function updateTaskAndCardColor(newTaskColor, taskId) {
-	const task = tasks.find((task) => task._id === taskId);
-	task.color = newTaskColor;
-	cards.forEach((card) =>
-		card.cardOwner === taskId ? (card.color = newTaskColor) : card.color
-	);
-}
-
-function generateColor() {
-	var letters = '0123456789ABCDEF'.split('');
-	var color = '#';
-	for (var i = 0; i < 6; i++) {
-		color += letters[Math.round(Math.random() * 15)];
-	}
-	return color;
-}
-
-function saveToLocalStorageAndRender() {
-	saveToLocalStorage();
+function saveAndRender() {
+	save();
 	render();
 }
 
-function saveToLocalStorage() {
-	localStorage.setItem(LOCAL_STORAGE_TASKS_KEY, JSON.stringify(tasks));
-	localStorage.setItem(LOCAL_STORAGE_CARDS_KEY, JSON.stringify(cards));
-	localStorage.setItem(LOCAL_STORAGE_SELECTED_TASK_ID_KEY, selectedTaskId);
+function save() {
+	localStorage.setItem(
+		LOCAL_STORAGE_CATEGORIES_KEY,
+		JSON.stringify(categories)
+	);
+	localStorage.setItem(LOCAL_STORAGE_TODOS_KEY, JSON.stringify(todos));
+	localStorage.setItem(
+		LOCAL_STORAGE_SELECTED_CATEGORY_ID_KEY,
+		selectedCategoryId
+	);
 }
 
 function render() {
-	clearChildElements(tasksContainer);
+	clearChildElements(categoriesContainer);
 	clearChildElements(newTodoSelect);
 	clearChildElements(editTodoSelect);
-	clearChildElements(cardsContainer);
+	clearChildElements(todosContainer);
 
-	renderTasks();
-	renderTodoFormOptions();
-	renderCurrentViewing(); // We dont need to clear child elements because this function does not create an element. It just inserts text into an element
-	renderCards();
-}
+	renderCategories();
+	renderFormOptions();
+	renderTodos();
 
-function clearChildElements(element) {
-	while (element.firstChild) {
-		element.removeChild(element.firstChild);
+	// Set the current viewing category
+	if (!selectedCategoryId || selectedCategoryId === 'null') {
+		currentlyViewing.innerHTML = `You are currently viewing <strong>All Categories</strong>`;
+	} else {
+		const currentCategory = categories.find(
+			(category) => category._id === selectedCategoryId
+		);
+		currentlyViewing.innerHTML = `You are currently viewing <strong>${currentCategory.category}</strong>
+		<span style="color: #e57373; cursor: pointer;">(delete)</span>`;
 	}
 }
 
-function renderTasks() {
-	tasksContainer.innerHTML += `<li class="sidebar-item" style="${
-		(null || 'null') === selectedTaskId && `font-weight: 600;`
-	}" data-task-id=null>View All</li>`;
+function renderCategories() {
+	categoriesContainer.innerHTML += `<li class="sidebar-item" style="${
+		selectedCategoryId === 'null' || selectedCategoryId === null
+			? 'font-weight: 600'
+			: ''
+	}" data-category-id="">View All</li>`;
 
-	tasks.forEach(({ _id, task, color }) => {
-		tasksContainer.innerHTML += `
-		<li class="sidebar-item" style="${
-			selectedTaskId === _id && `font-weight: 600;`
-		}" data-task-id=${_id}>${task}<input class="sidebar-color" type="color" value=${color}></li>`;
+	categories.forEach(({ _id, category, color }) => {
+		categoriesContainer.innerHTML += `<li class="sidebar-item" style="${
+			_id === selectedCategoryId ? 'font-weight: 600' : ''
+		}" data-category-id=${_id}>${category}<input class="sidebar-color" type="color" value=${color}></li>`;
 	});
 }
 
-function renderTodoFormOptions() {
-	newTodoSelect.innerHTML += `<option value="">Select a task</option>`;
-	editTodoSelect.innerHTML += `<option value="">Select a task</option>`;
+function renderFormOptions() {
+	// Create default option
+	newTodoSelect.innerHTML += `<option value="">Select a category</option>`;
+	editTodoSelect.innerHTML += `<option value="">Select a category</option>`;
 
 	// Creates dynamic options
-	tasks.forEach(({ _id, task, color }) => {
-		newTodoSelect.innerHTML += `<option value=${_id}>${task}</option>`;
-		editTodoSelect.innerHTML += `<option value=${_id}>${task}</option>`;
+	categories.forEach(({ _id, category }) => {
+		newTodoSelect.innerHTML += `<option value=${_id}>${category}</option>`;
+		editTodoSelect.innerHTML += `<option value=${_id}>${category}</option>`;
 	});
 }
 
-function renderCurrentViewing() {
-	if (selectedTaskId === 'null' || selectedTaskId === null) {
-		return (currentViewingTask.innerHTML = `You are currently viewing <strong>All Task</strong>`);
-	}
+function renderTodos() {
+	let todosToRender = todos;
 
-	const { task } = tasks.find((task) => task._id === selectedTaskId);
-	currentViewingTask.innerHTML = `You are currently viewing <strong>${task}</strong>
-	<span style="color: #e57373; cursor: pointer;">(delete)</span>`;
-}
-
-function renderCards() {
-	let cardsToRender;
-
-	if (selectedTaskId === 'null' || selectedTaskId === null) {
-		cardsToRender = cards;
-	} else {
-		cardsToRender = cards.filter(
-			(card) => card.cardOwner === selectedTaskId
+	// if their is a Selected Category Id, and selected category id !== 'null then filter the todos
+	if (selectedCategoryId && selectedCategoryId !== 'null') {
+		todosToRender = todos.filter(
+			(todo) => todo.categoryId === selectedCategoryId
 		);
 	}
 
-	cardsToRender.forEach(({ cardOwner, _id, task, todo, color }) => {
-		cardsContainer.innerHTML += `
-			<div class="card" data-card-id=${_id} style="border-color: ${color}">
+	// Render Todos
+	todosToRender.forEach(({ _id, categoryId, todo }) => {
+		// Get Complimentary categoryDetails Based On TaskId
+		const categoryDetails = categories.find(
+			(category) => category._id === categoryId
+		);
+		todosContainer.innerHTML += `
+			<div class="card" style="border-color: ${categoryDetails.color}">
 				<div class="card-content">
 					<div class="card-tag" style="background-color: ${convertHexToRGBA(
-						color,
-						15
-					)}; color: ${color};">${task}</div>
+						categoryDetails.color,
+						20
+					)}; color: ${categoryDetails.color};">${
+			categoryDetails.category
+		}</div>
 					<div class="card-description">${todo}</div>
 					<div class="card-actions">
-						<i class="far fa-edit"></i>
-						<i class="far fa-trash-alt"></i>
+						<i class="far fa-edit" data-edit-todo=${_id}></i>
+						<i class="far fa-trash-alt" data-delete-todo=${_id}></i>
 					</div>
 				</div>
 			</div>
 		`;
 	});
+}
+
+// HELPERS
+function clearChildElements(element) {
+	while (element.firstChild) {
+		element.removeChild(element.firstChild);
+	}
 }
 
 function convertHexToRGBA(hexCode, opacity) {
