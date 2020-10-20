@@ -43,9 +43,7 @@ newCategoryForm.addEventListener('submit', (e) => {
 	categories.push({
 		_id: Date.now().toString(),
 		category: categoryName,
-		color: randomColor({
-			luminosity: 'bright',
-		}),
+		color: randomColor(),
 	});
 
 	newCategoryInput.value = '';
