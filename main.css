@@ -18,30 +18,8 @@ body {
 }
 
 /* margin */
-.ml-2,
-.mx-2 {
-	margin-left: 0.5rem !important;
-}
-
-.mr-5,
-.mx-5 {
-	margin-right: 3rem !important;
-}
-
-.ml-auto,
-.mx-auto {
+.ml-auto {
 	margin-left: auto !important;
-}
-
-/* Paddings */
-.pr-0,
-.px-0 {
-	padding-right: 0 !important;
-}
-
-.pl-0,
-.px-0 {
-	padding-left: 0 !important;
 }
 
 /* Flex */
@@ -113,12 +91,13 @@ body {
 
 /** =================== Form Component =================== */
 .form-inline {
-	display: flex;
+	display: flex;	
+	align-items: center;
 	flex-flow: row wrap;
 }
 
-.form-group {
-	margin-bottom: 1rem;
+.form-inline .form-group {
+	margin-right: 3rem;
 }
 
 .form-control {
@@ -247,9 +226,14 @@ body {
 	color: #81c784;
 }
 
-/** =================== Container Styles =================== */
-.form-container {
+/** =================== Container Modifier Styles =================== */
+.form-container  {
 	font-size: 0.9rem;
+}
+
+.form-container .form-inline > input {
+	padding-left: 0;
+	padding-right: 0;
 }
 
 .main {
@@ -257,14 +241,14 @@ body {
 	overflow-y: scroll;
 }
 
-.main-form-container {
+.main-form-container > .form-inline {
 	opacity: 0;
 	height: 0;
 	transform: translateY(-100%);
 	transition: all 0.3s ease-in-out;
 }
 
-.main-form-container.active {
+.main-form-container > .form-inline.active {
 	padding: 1rem;
 	transform: translateY(0);
 	height: auto;

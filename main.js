@@ -94,12 +94,16 @@ currentlyViewing.addEventListener('click', (e) => {
 
 // EVENT: Toggle Add Todo Form
 newTodoFormToggler.addEventListener('click', function() {
-	newTodoForm.parentElement.classList.toggle('active');
+	if (editTodoForm.classList.contains('active')) {
+		editTodoForm.classList.remove('active');
+	}
 
-	if (!newTodoForm.parentElement.classList.contains('active')) {
-		this.innerHTML = `<i class="fa fa-plus" aria-hidden="true"></i> Add Todo`;
-	} else {
+	newTodoForm.classList.toggle('active');
+
+	if (newTodoForm.classList.contains('active')) {
 		this.innerHTML = `<i class="fas fa-times"></i> Cancel`;
+	} else {
+		this.innerHTML = `<i class="fa fa-plus" aria-hidden="true"></i> Add Todo`;
 	}
 });
 
@@ -120,11 +124,12 @@ newTodoForm.addEventListener('submit', (e) => {
 let todoToEdit = null;
 todosContainer.addEventListener('click', (e) => {
 	if (e.target.classList[1] === 'fa-edit') {
-		if (newTodoForm.parentElement.classList.contains('active')) {
-			newTodoForm.parentElement.classList.remove('active');
+		if (newTodoForm.classList.contains('active')) {
+			newTodoForm.classList.remove('active');
+			newTodoFormToggler.innerHTML = `<i class="fa fa-plus" aria-hidden="true"></i> Add Todo`;
 		}
 
-		editTodoForm.parentElement.classList.add('active');
+		editTodoForm.classList.add('active');
 
 		todoToEdit = todos.find(
 			(todo) => todo._id === e.target.dataset.editTodo
@@ -151,7 +156,7 @@ editTodoForm.addEventListener('submit', function (e) {
 	todoToEdit.categoryId = editTodoSelect.value;
 	todoToEdit.todo = editTodoInput.value;
 
-	editTodoForm.parentElement.classList.remove('active');
+	editTodoForm.classList.remove('active');
 
 	editTodoSelect.value = '';
 	editTodoInput.value = '';
