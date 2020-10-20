@@ -93,13 +93,13 @@ currentlyViewing.addEventListener('click', (e) => {
 });
 
 // EVENT: Toggle Add Todo Form
-newTodoFormToggler.addEventListener('click', () => {
+newTodoFormToggler.addEventListener('click', function() {
 	newTodoForm.parentElement.classList.toggle('active');
 
 	if (!newTodoForm.parentElement.classList.contains('active')) {
-		newTodoFormToggler.innerHTML = `<i class="fa fa-plus" aria-hidden="true"></i> Add Todo`;
+		this.innerHTML = `<i class="fa fa-plus" aria-hidden="true"></i> Add Todo`;
 	} else {
-		newTodoFormToggler.innerHTML = `<i class="fas fa-times"></i> Cancel`;
+		this.innerHTML = `<i class="fas fa-times"></i> Cancel`;
 	}
 });
 
@@ -120,6 +120,10 @@ newTodoForm.addEventListener('submit', (e) => {
 let todoToEdit = null;
 todosContainer.addEventListener('click', (e) => {
 	if (e.target.classList[1] === 'fa-edit') {
+		if (newTodoForm.parentElement.classList.contains('active')) {
+			newTodoForm.parentElement.classList.remove('active');
+		}
+
 		editTodoForm.parentElement.classList.add('active');
 
 		todoToEdit = todos.find(
