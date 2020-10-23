@@ -5,17 +5,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="./reset.css" />
 		<link rel="stylesheet" href="./main.css" />
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-			integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-			crossorigin="anonymous"
-		/>
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.6.1/randomColor.min.js"
-			integrity="sha512-vPeZ7JCboHcfpqSx5ZD+/jpEhS4JpXxfz9orSvAPPj0EKUVShU2tgy7XkU+oujBJKnWmu4hU7r9MMQNWPfXsYw=="
-			crossorigin="anonymous"
-		></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous"/>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.6.1/randomColor.min.js" integrity="sha512-vPeZ7JCboHcfpqSx5ZD+/jpEhS4JpXxfz9orSvAPPj0EKUVShU2tgy7XkU+oujBJKnWmu4hU7r9MMQNWPfXsYw==" crossorigin="anonymous"></script>
 		<title>TodoList</title>
 	</head>
 	<body>
@@ -41,20 +32,11 @@
 				<ul class="sidebar-list" data-categories></ul>
 			</aside>
 			<main class="main">
-				<header
-					class="header header-secondary d-flex justify-content-between align-items-center"
-				>
+				<header class="header header-secondary d-flex justify-content-between align-items-center">
 					<div>
-						<h1 class="header-title">
-							Welcome Back, <strong>Noel</strong>
-						</h1>
-
-						<div
-							style="font-size: 0.8rem; display: inline-block"
-							data-currently-viewing
-						></div>
+						<h1 class="header-title">Welcome Back, <strong>Noel</strong></h1>
+						<div style="font-size: 0.8rem; display: inline-block" data-currently-viewing></div>
 					</div>
-
 					<button class="btn btn-primary" data-new-todo-toggler>
 						<i class="fa fa-plus" aria-hidden="true"></i>
 						Add Todo
@@ -65,23 +47,12 @@
 					<form class="form-inline" data-new-todo-form>
 						<div class="form-group">
 							<label>Task :</label>
-							<select
-								data-new-todo-select
-								class="form-control"
-								required
-							></select>
+							<select data-new-todo-select class="form-control" required></select>
 						</div>
 						<div class="form-group">
 							<label>Todo :</label>
-							<input
-								type="text"
-								data-new-todo-input
-								class="form-control"
-								placeholder="Enter todo..."
-								required
-							/>
+							<input type="text" data-new-todo-input class="form-control" placeholder="Enter todo..." required />
 						</div>
-
 						<button class="btn btn-primary ml-auto">
 							<i class="fa fa-plus" aria-hidden="true"></i>
 							Add
@@ -93,23 +64,12 @@
 					<form class="form-inline" data-edit-todo-form>
 						<div class="form-group">
 							<label for="task">Task :</label>
-							<select
-								data-edit-todo-select
-								class="form-control"
-								required
-							></select>
+							<select data-edit-todo-select class="form-control" required></select>
 						</div>
 						<div class="form-group">
 							<label for="todo">Todo :</label>
-							<input
-								type="text"
-								data-edit-todo-input
-								class="form-control"
-								placeholder="Enter todo..."
-								required
-							/>
+							<input type="text" data-edit-todo-input class="form-control" placeholder="Enter todo..." required />
 						</div>
-
 						<button class="btn btn-primary ml-auto">Save</button>
 					</form>
 				</div>
@@ -117,7 +77,6 @@
 				<section class="cards-container" data-cards></section>
 			</main>
 		</div>
-
 		<script src="./main.js"></script>
 	</body>
 </html>

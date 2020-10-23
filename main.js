@@ -98,7 +98,7 @@ newTodoFormToggler.addEventListener('click', function() {
 	newTodoForm.classList.toggle('active');
 
 	if (newTodoForm.classList.contains('active')) {
-		this.innerHTML = `<i class="fas fa-times"></i> Cancel`;
+		this.innerHTML = `<i class="fas fa-times"></i> Close`;
 	} else {
 		this.innerHTML = `<i class="fa fa-plus" aria-hidden="true"></i> Add Todo`;
 	}
@@ -187,9 +187,7 @@ function render() {
 	if (!selectedCategoryId || selectedCategoryId === 'null') {
 		currentlyViewing.innerHTML = `You are currently viewing <strong>All Categories</strong>`;
 	} else {
-		const currentCategory = categories.find(
-			(category) => category._id === selectedCategoryId
-		);
+		const currentCategory = categories.find((category) => category._id === selectedCategoryId);
 		currentlyViewing.innerHTML = `You are currently viewing <strong>${currentCategory.category}</strong>
 		<span style="color: #e57373; cursor: pointer;">(delete)</span>`;
 	}
@@ -197,13 +195,25 @@ function render() {
 
 function renderCategories() {
 	categoriesContainer.innerHTML += `
-	<li class="sidebar-item" style="${selectedCategoryId === 'null' || selectedCategoryId === null ? 'font-weight: 600' : ''}" data-category-id="">View All</li>
+		<li 
+			class="sidebar-item" 
+			style="${selectedCategoryId === 'null' || selectedCategoryId === null ? 'font-weight: 600' : ''}" data-category-id=""
+		>
+			View All
+		</li>
 	`;
 
 	categories.forEach(({ _id, category, color }) => {
-		categoriesContainer.innerHTML += `<li class="sidebar-item" style="${
-			_id === selectedCategoryId ? 'font-weight: 600' : ''
-		}" data-category-id=${_id}>${category}<input class="sidebar-color" type="color" value=${color}></li>`;
+		categoriesContainer.innerHTML += `
+		<li 
+			class="sidebar-item" 
+			style="${_id === selectedCategoryId ? 'font-weight: 600' : ''}" 
+			data-category-id=${_id}
+		>
+			${category}
+			<input class="sidebar-color" type="color" value=${color}>
+		</li>
+		`;
 	});
 }
 
@@ -224,26 +234,21 @@ function renderTodos() {
 
 	// if their is a Selected Category Id, and selected category id !== 'null then filter the todos
 	if (selectedCategoryId && selectedCategoryId !== 'null') {
-		todosToRender = todos.filter(
-			(todo) => todo.categoryId === selectedCategoryId
-		);
+		todosToRender = todos.filter((todo) => todo.categoryId === selectedCategoryId);
 	}
 
 	// Render Todos
 	todosToRender.forEach(({ _id, categoryId, todo }) => {
+		
 		// Get Complimentary categoryDetails Based On TaskId
-		const categoryDetails = categories.find(
-			(category) => category._id === categoryId
-		);
+		const {color, category} = categories.find(({_id}) => _id === categoryId);
+		const backgroundColor = convertHexToRGBA(color,20);
 		todosContainer.innerHTML += `
-			<div class="card" style="border-color: ${categoryDetails.color}">
+			<div class="card" style="border-color: ${color}">
 				<div class="card-content">
-					<div class="card-tag" style="background-color: ${convertHexToRGBA(
-						categoryDetails.color,
-						20
-					)}; color: ${categoryDetails.color};">${
-			categoryDetails.category
-		}</div>
+					<div class="card-tag" style="background-color: ${backgroundColor}; color: ${color};">
+						${category}
+					</div>
 					<div class="card-description">${todo}</div>
 					<div class="card-actions">
 						<i class="far fa-edit" data-edit-todo=${_id}></i>
