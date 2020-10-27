@@ -15,6 +15,18 @@
     margin: 10px;
 }
 
+.form input, .form select {
+	border: 0;
+    width: 100%;
+    padding: 3px 0;
+	font-size: 16px;	
+	background-color: transparent;
+}
+
+.form input:focus, .form select:focus {
+    outline: none;
+}
+
 .btn {
     display: inline-block;
     padding: 10px 30px;
@@ -138,10 +150,6 @@
     align-items: center;
     height: 100%;
 }
-
-/* .grid-3 {
-    grid-template-columns: repeat(3, 1fr);
-} */
 
 /* Margin */
 .ml-auto {

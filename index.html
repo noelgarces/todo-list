@@ -11,10 +11,11 @@
 	</head>
 	<body>
 		<div class="project-wrapper">
+			<!-- Sidebar -->
 			<aside class="sidebar">
 				<header class="header p-1">
 					<h1 class="header-title">My Categories</h1>
-					<form class="sidebar-form" data-new-category-form>
+					<form class="form sidebar-form" data-new-category-form>
 						<div class="form-control">
 							<input
 								type="text"
@@ -29,42 +30,41 @@
 				</header>
 				<ul class="sidebar-list p-1" data-categories></ul>
 			</aside>
+
 			<main class="main">
+				<!-- Header -->
 				<header class="header bg-light p-1 flex">
 					<div>
 						<h1 class="header-title">Welcome Back, <strong>Noel</strong></h1>
 						<div data-currently-viewing></div>
 					</div>
+
 					<!-- Create todo form -->
-					<form class="create-todo-form flex" data-new-todo-form>
+					<form class="form create-todo-form flex" data-new-todo-form>
 						<div class="form-control">
-							<select data-new-todo-select class="form-control" required></select>
+							<select data-new-todo-select required></select>
 						</div>
 						<div class="form-control">
-							<input type="text" data-new-todo-input class="form-control" placeholder="Enter Todo" required />
+							<input type="text" data-new-todo-input  placeholder="Enter Todo" required />
 						</div>
 						<button class="btn btn-primary">
 							<i class="fa fa-plus" aria-hidden="true"></i>Add Todo
 						</button>
 					</form>
-					<button class="btn btn-primary" style="display: none;" data-new-todo-toggler>
-						<i class="fa fa-plus" aria-hidden="true"></i>
-						Add Todo
-					</button>
+					
+					<!-- Edit todo form -->
+					<form class="form edit-todo-form flex" data-edit-todo-form>
+						<div class="form-control">
+							<select data-edit-todo-select required></select>
+						</div>
+						<div class="form-control">
+							<input type="text" data-edit-todo-input placeholder="Enter Todo" required />
+						</div>
+						<button class="btn btn-primary">Save</button>
+					</form>
 				</header>
-				<!-- Edit todo form -->
-				<form class="form-inline" style="display: none;" data-edit-todo-form>
-					<div class="form-group">
-						<label for="task">Task :</label>
-						<select data-edit-todo-select class="form-control" required></select>
-					</div>
-					<div class="form-group">
-						<label for="todo">Todo :</label>
-						<input type="text" data-edit-todo-input class="form-control" placeholder="Enter todo..." required />
-					</div>
-					<button class="btn btn-primary ml-auto">Save</button>
-				</form>
-				<!-- Cards Section -->
+
+				<!-- Cards -->
 				<section class="cards-container p-1 grid" data-cards></section>
 			</main>
 		</div>

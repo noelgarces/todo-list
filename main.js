@@ -9,7 +9,6 @@ const categoriesContainer = document.querySelector('[data-categories]');
 const currentlyViewing = document.querySelector('[data-currently-viewing]');
 
 // Selector for new todo form
-const newTodoFormToggler = document.querySelector('[data-new-todo-toggler]');
 const newTodoForm = document.querySelector('[data-new-todo-form]');
 const newTodoSelect = document.querySelector('[data-new-todo-select]');
 const newTodoInput = document.querySelector('[data-new-todo-input]');
@@ -89,21 +88,6 @@ currentlyViewing.addEventListener('click', (e) => {
 	}
 });
 
-// EVENT: Toggle Add Todo Form
-newTodoFormToggler.addEventListener('click', function() {
-	if (editTodoForm.classList.contains('active')) {
-		editTodoForm.classList.remove('active');
-	}
-
-	newTodoForm.classList.toggle('active');
-
-	if (newTodoForm.classList.contains('active')) {
-		this.innerHTML = `<i class="fas fa-times"></i> Close`;
-	} else {
-		this.innerHTML = `<i class="fa fa-plus" aria-hidden="true"></i> Add Todo`;
-	}
-});
-
 // EVENT: Add Todo
 newTodoForm.addEventListener('submit', (e) => {
 	e.preventDefault();
@@ -124,12 +108,9 @@ newTodoForm.addEventListener('submit', (e) => {
 let todoToEdit = null;
 todosContainer.addEventListener('click', (e) => {
 	if (e.target.classList[1] === 'fa-edit') {
-		if (newTodoForm.classList.contains('active')) {
-			newTodoForm.classList.remove('active');
-			newTodoFormToggler.innerHTML = `<i class="fa fa-plus" aria-hidden="true"></i> Add Todo`;
-		}
+		newTodoForm.style.display = 'none'
 
-		editTodoForm.classList.add('active');
+		editTodoForm.style.display = 'flex';
 
 		todoToEdit = todos.find((todo) => todo._id === e.target.dataset.editTodo);
 
@@ -152,7 +133,8 @@ editTodoForm.addEventListener('submit', function (e) {
 	todoToEdit.categoryId = editTodoSelect.value;
 	todoToEdit.todo = editTodoInput.value;
 
-	editTodoForm.classList.remove('active');
+	editTodoForm.style.display = 'none';
+	newTodoForm.style.display = 'flex';
 
 	editTodoSelect.value = '';
 	editTodoInput.value = '';
@@ -245,16 +227,14 @@ function renderTodos() {
 		const backgroundColor = convertHexToRGBA(color,20);
 		todosContainer.innerHTML += `
 			<div class="card" style="border-color: ${color}">
-				<div class="card-content">
 					<div class="card-tag" style="background-color: ${backgroundColor}; color: ${color};">
 						${category}
 					</div>
-					<div class="card-description">${todo}</div>
+					<p class="card-description">${todo}</p>
 					<div class="card-actions">
 						<i class="far fa-edit" data-edit-todo=${_id}></i>
 						<i class="far fa-trash-alt" data-delete-todo=${_id}></i>
 					</div>
-				</div>
 			</div>
 		`;
 	});
