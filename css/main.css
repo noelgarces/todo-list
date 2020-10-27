@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+
+:root {
+    --primary-color: #047aed;
+    --secondary-color: #1c3fa8;
+    --dark-color: #002240;
+    --light-color: #f4f4f4;
+    --success-color: #5cb85c;
+    --error-color: #d9534f;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    color: #333;
+	line-height: 1.6;
+	padding: 2rem;
+	background-color: #eaeef7;
+	height: 100vh;
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+h1, h2 {
+    font-weight: 300;
+    line-height: 1.2;
+    margin: 10px 0;
+}
+
+p {
+    margin: 10px 0;
+}
+
+.project-wrapper {
+	display: grid;
+	grid-template-columns: 225px 1fr;
+	border-radius: 1rem;
+	overflow: hidden;
+	height: 100%;
+}
+
+/** =================== Header Component =================== */
+.header {
+	justify-content: space-between;
+	color: black;
+	position: sticky;
+	top: 0;
+	height: max-content;
+}
+
+.header-title {
+	font-size: 1.25rem;
+	line-height: 1.85rem;
+	font-weight: bold;
+}
+
+/** =================== Sidebar Component =================== */
+.sidebar {
+	background-color: #eaeef7;
+	display: inline-block;
+	height: 100vh;
+	width: 100%;
+}
+
+.sidebar-item {
+	display: inline-flex;
+	align-items: center;
+	width: 100%;
+	margin: 1rem 0;
+	cursor: pointer;
+}
+
+.sidebar-item:first-child {
+	margin-top: 0;
+}
+
+.sidebar-color {
+	border: none;
+	width: 25px;
+	margin-left: auto;
+}
+
+/** =================== Forms =================== */
+.sidebar-form input, .create-todo-form input, .create-todo-form select {
+	border: 0;
+    width: 100%;
+    padding: 3px 0;
+	font-size: 16px;	
+	background-color: transparent;
+}
+
+.sidebar-form input:focus, .create-todo-form input:focus, .create-todo-form select:focus {
+    outline: none;
+}
+
+/* Sidebar Form */
+.sidebar-form .form-control {
+	margin: 5px 0;
+}
+
+
+.sidebar-form button {
+	width: 100%;
+}
+
+/* Create Todo Form */
+.create-todo-form {
+	flex: .5;
+	justify-content: space-between;
+}
+
+.create-todo-form input {
+	border-bottom: 1px solid #b4becb;
+	width: 350px;
+}
+
+/** =================== Card Component ===================  */
+.card {
+	border-top: 6px solid;
+	height: 100%;
+	margin: 0;
+}
+
+.card-content {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	height: 100%;
+}
+
+.card-tag {
+	display: inline-block;
+	padding: 5px 25px;
+	margin-bottom: 1rem;
+	font-weight: 500;
+	border-radius: 0.5rem;
+}
+
+.card-description {
+	margin-bottom: 1rem;
+}
+
+.card-actions {
+	display: flex;
+	margin-top: auto;
+}
+
+.card-actions i {
+	margin-right: 1rem;
+	padding: 0.1rem;
+	cursor: pointer;
+	opacity: 0.25;
+}
+
+/** =================== Container Modifier Styles =================== */
+.main {
+	background-color: var(--light-color);
+	overflow-y: scroll;
+}
+
+.main .cards-container {
+	grid-template-columns: repeat(4, 1fr);
+	grid-auto-rows: max-content;
+}
+

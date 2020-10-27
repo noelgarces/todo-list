@@ -219,8 +219,8 @@ function renderCategories() {
 
 function renderFormOptions() {
 	// Create default option
-	newTodoSelect.innerHTML += `<option value="">Select a category</option>`;
-	editTodoSelect.innerHTML += `<option value="">Select a category</option>`;
+	newTodoSelect.innerHTML += `<option value="">Select A Category</option>`;
+	editTodoSelect.innerHTML += `<option value="">Select A Category</option>`;
 
 	// Creates dynamic options
 	categories.forEach(({ _id, category }) => {
