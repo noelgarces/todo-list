@@ -2,7 +2,7 @@
 
 ### [Live Site](https://noel-garces08.github.io/TodoList/)
 
-![Todo List Application](https://i.imgur.com/naNRPGt.png)
+![Todo List Application](https://i.imgur.com/0SLL32U.png)
 
 ## Introduction
 This is a code repository for the corresponding video tutorial. 
