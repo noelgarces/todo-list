@@ -1,6 +1,5 @@
 // Selectors for new category form
 const newCategoryForm = document.querySelector('[data-new-category-form]');
-const newCategoryInput = document.querySelector('[data-new-category-input]');
 
 // Selector for categories container
 const categoriesContainer = document.querySelector('[data-categories]');
@@ -33,7 +32,8 @@ let todos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_TODOS_KEY)) || [];
 // EVENT: Add Category
 newCategoryForm.addEventListener('submit', (e) => {
 	e.preventDefault();
-	const categoryName = newCategoryInput.value;
+
+	const categoryName = e.target.category.value;
 	const isCategoryEmpty = !categoryName || !categoryName.trim().length;
 
 	if (isCategoryEmpty) {
@@ -48,7 +48,7 @@ newCategoryForm.addEventListener('submit', (e) => {
 		}),
 	});
 
-	newCategoryInput.value = '';
+	e.target.category.value = '';
 
 	saveAndRender();
 });
