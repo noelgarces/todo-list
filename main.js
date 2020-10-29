@@ -10,6 +10,7 @@ const currentlyViewing = document.querySelector('[data-currently-viewing]');
 // Selector for new todo form
 const newTodoForm = document.querySelector('[data-new-todo-form]');
 const newTodoSelect = document.querySelector('[data-new-todo-select]');
+const newTodoInput = document.querySelector('[data-new-todo-input]');
 
 // Selector for edit todo form
 const editTodoForm = document.querySelector('[data-edit-todo-form]');
@@ -95,12 +96,12 @@ newTodoForm.addEventListener('submit', (e) => {
 
 	todos.push({
 		_id: Date.now().toString(),
-		categoryId: e.target.category.value,
-		todo: e.target.todo.value,
+		categoryId: newTodoSelect.value,
+		todo: newTodoInput.value,
 	});
 
-	e.target.category.value = '';
-	e.target.todo.value = '';
+	newTodoSelect.value = '';
+	newTodoInput.value = '';
 
 	saveAndRender();
 });
