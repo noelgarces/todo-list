@@ -1,4 +1,4 @@
-# Feature Packed Todo List
+# Modern Todo List | HTML, CSS, and JavaScript
 
 ### [Live Site](https://noel-garces08.github.io/TodoList/)
 
