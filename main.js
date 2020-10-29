@@ -43,9 +43,7 @@ newCategoryForm.addEventListener('submit', (e) => {
 	categories.push({
 		_id: Date.now().toString(),
 		category: categoryName,
-		color: randomColor({
-			luminosity: 'dark'
-		}),
+		color: getRandomHexColor()
 	});
 
 	e.target.category.value = '';
@@ -261,6 +259,12 @@ function convertHexToRGBA(hexCode, opacity) {
 	const b = parseInt(hex.substring(4, 6), 16);
 
 	return `rgba(${r},${g},${b},${opacity / 100})`;
+}
+
+function getRandomHexColor() {
+	var hex = (Math.round(Math.random()*0xffffff)).toString(16);
+	while (hex.length < 6) hex = "0" + hex;
+	return `#${hex}`;
 }
 
 render();
