@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="./css/utilities.css">
+		<link rel="stylesheet" href="./css/reset.css">
 		<link rel="stylesheet" href="./css/main.css" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous"/>
 		<title>TodoList</title>
@@ -12,9 +12,9 @@
 		<div class="project-wrapper">
 			<!-- Sidebar -->
 			<aside class="sidebar">
-				<header class="header p-1">
+				<header class="header">
 					<h1 class="header-title">My Categories</h1>
-					<form class="form sidebar-form" data-new-category-form>
+					<form class="sidebar-form" data-new-category-form>
 						<div class="form-control">
 							<input
 								type="text"
@@ -28,19 +28,20 @@
 						</button>
 					</form>
 				</header>
-				<ul class="sidebar-list p-1" data-categories></ul>
+				<ul class="sidebar-list" data-categories></ul>
 			</aside>
 
+			<!-- Main -->
 			<main class="main">
 				<!-- Header -->
-				<header class="header bg-light p-1 flex">
+				<header class="header">
 					<div>
 						<h1 class="header-title">Welcome Back, <strong>Noel</strong></h1>
 						<div data-currently-viewing></div>
 					</div>
 
 					<!-- Create todo form -->
-					<form class="form create-todo-form flex" data-new-todo-form>
+					<form class="create-todo-form" data-new-todo-form>
 						<div class="form-control">
 							<select data-new-todo-select required></select>
 						</div>
@@ -53,7 +54,7 @@
 					</form>
 					
 					<!-- Edit todo form -->
-					<form class="form edit-todo-form flex" data-edit-todo-form>
+					<form class="edit-todo-form" data-edit-todo-form>
 						<div class="form-control">
 							<select data-edit-todo-select required></select>
 						</div>
@@ -65,7 +66,7 @@
 				</header>
 
 				<!-- Cards -->
-				<section class="cards-container p-1 grid" data-cards></section>
+				<section class="cards-container" data-cards></section>
 			</main>
 		</div>
 		<script src="./main.js"></script>

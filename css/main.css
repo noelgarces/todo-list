@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
 
+/* Base  */
 :root {
     --primary-color: #333;
     --light-color: #f8f8ff;
@@ -14,11 +15,11 @@
 }
 
 body {
-    font-family: 'Lato', sans-serif;
-    color: #333;
-	line-height: 1.6;
-	padding: 2rem;
 	background-color: #eaeef7;
+    color: #333;
+    font-family: 'Lato', sans-serif;
+	line-height: 1.6;
+	padding: 32px;
 	height: 100vh;
 }
 
@@ -26,43 +27,52 @@ ul {
     list-style-type: none;
 }
 
-h1, h2 {
-    font-weight: 300;
-    line-height: 1.2;
-    margin: 10px 0;
-}
-
-p {
-    margin: 10px 0;
-}
-
 .project-wrapper {
 	display: grid;
 	grid-template-columns: 225px 1fr;
-	border-radius: 1rem;
+	border-radius: 16px;
 	overflow: hidden;
 	height: 100%;
 }
 
+/* Utilities */
+.btn {
+    display: inline-block;
+    padding: 10px 30px;
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
+
+.btn:hover {
+    transform: scale(0.98);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
 /* Header */
 .header {
-	justify-content: space-between;
 	color: black;
+    padding: 16px;
 	position: sticky;
 	top: 0;
-	height: max-content;
 }
 
 .header-title {
 	font-size: 20px;
-	line-height: 30px;
 	font-weight: bold;
+	line-height: 30px;
+    margin: 10px 0;
 }
 
 /* Sidebar */
-.sidebar {
-	background-color: #eaeef7;
-	height: 100%;
+.sidebar-list {
+    padding: 16px;
 }
 
 .sidebar-item {
@@ -73,6 +83,10 @@ p {
 	cursor: pointer;
 }
 
+.sidebar-item:first-child {
+	margin-top: 0;
+}
+
 .sidebar-color {
 	border: none;
 	width: 25px;
@@ -80,13 +94,21 @@ p {
 	cursor: pointer;
 }
 
-.sidebar-item:first-child {
-	margin-top: 0;
-}
-
 /* Sidebar Form */
 .sidebar-form .form-control {
 	margin: 5px 0;
+}
+
+.sidebar-form input {
+	border: 0;
+    width: 100%;
+    padding: 3px 0;
+	font-size: 16px;	
+	background-color: transparent;
+}
+
+.sidebar-form input:focus {
+	outline: none;
 }
 
 .sidebar-form button {
@@ -94,9 +116,25 @@ p {
 }
 
 /* Create and Edit Todo Form */
+.create-todo-form input, .edit-todo-form input, 
+.create-todo-form select, .edit-todo-form select {
+	border: 0;
+    width: 100%;
+    padding: 3px 0;
+	font-size: 16px;	
+	background-color: transparent;
+}
+
+.create-todo-form input:focus, .edit-todo-form input:focus,
+.create-todo-form select:focus, .edit-todo-form select:focus {
+	outline: none;
+}
+
 .create-todo-form, .edit-todo-form  {
-	flex: .8;
+	display: flex;
 	justify-content: space-between;
+	align-items: center;
+	flex: .8;
 }
 
 .create-todo-form input, .edit-todo-form input {
@@ -108,24 +146,28 @@ p {
 	display: none;
 }
 
-/** =================== Card Component ===================  */
+/* Card */
 .card {
+    background-color: #fff;
+    color: #333;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+	padding: 20px;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	height: 100%;
 	border-top: 6px solid;
-	margin: 0;
 }
 
 .card-tag {
 	padding: 5px 25px;
-	margin-bottom: 8px;
 	border-radius: 5px;
+	margin-bottom: 8px;
 }
 
 .card-description {
-	margin-bottom: 16px;
+	margin: 10px 0 20px 0;
+	word-break: break-all;
 }
 
 .card-actions {
@@ -135,8 +177,8 @@ p {
 
 .card-actions i {
 	margin-right: 16px;
-	cursor: pointer;
 	opacity: 0.25;
+	cursor: pointer;
 }
 
 /* Main */
@@ -149,9 +191,20 @@ p {
 	display: none;
 }
 
-.main .cards-container {
-	grid-template-columns: repeat(4, 1fr);
-	grid-auto-rows: max-content;
-	height: auto;
+.main .header {
+	background-color: var(--light-color);
+	display: flex;
+	justify-content: space-between;		
+	align-items: center;
 }
+
+/* Cards Container */
+.cards-container {
+	padding: 1rem;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 20px;
+	grid-auto-rows: max-content;
+}
+
 
