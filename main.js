@@ -1,5 +1,6 @@
 // Selectors for new category form
 const newCategoryForm = document.querySelector('[data-new-category-form]');
+const newCategoryInput = document.querySelector('[data-new-category-input]')
 
 // Selector for categories container
 const categoriesContainer = document.querySelector('[data-categories]');
@@ -33,7 +34,7 @@ let todos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_TODOS_KEY)) || [];
 newCategoryForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const categoryName = e.target.category.value;
+    const categoryName = newCategoryInput.value;
     const isCategoryEmpty = !categoryName || !categoryName.trim().length;
 
     if (isCategoryEmpty) {
@@ -46,7 +47,7 @@ newCategoryForm.addEventListener('submit', (e) => {
         color: getRandomHexColor()
     });
 
-    e.target.category.value = '';
+    newCategoryInput.value = '';
 
     saveAndRender();
 });
@@ -54,6 +55,7 @@ newCategoryForm.addEventListener('submit', (e) => {
 // EVENT: Get Selected Category Id
 categoriesContainer.addEventListener('click', (e) => {
     if (e.target.tagName.toLowerCase() === 'li') {
+
         if (!e.target.dataset.categoryId) {
             selectedCategoryId = null;
         } else {
