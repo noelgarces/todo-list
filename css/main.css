@@ -70,7 +70,28 @@ ul {
     margin: 10px 0;
 }
 
-/* Sidebar */
+/* Sidebar Form */
+.sidebar-form .form-control {
+	margin: 5px 0;
+}
+
+.sidebar-form input {
+	border: 0;
+    width: 100%;
+    padding: 3px 0;
+	font-size: 16px;	
+	background-color: transparent;
+}
+
+.sidebar-form input:focus {
+	outline: none;
+}
+
+.sidebar-form button {
+	width: 100%;
+}
+
+/* Sidebar List */
 .sidebar-list {
     padding: 16px;
 }
@@ -94,25 +115,21 @@ ul {
 	cursor: pointer;
 }
 
-/* Sidebar Form */
-.sidebar-form .form-control {
-	margin: 5px 0;
+/* Main */
+.main {
+	background-color: var(--light-color);
+	overflow-y: scroll;
 }
 
-.sidebar-form input {
-	border: 0;
-    width: 100%;
-    padding: 3px 0;
-	font-size: 16px;	
-	background-color: transparent;
+.main::-webkit-scrollbar {
+	display: none;
 }
 
-.sidebar-form input:focus {
-	outline: none;
-}
-
-.sidebar-form button {
-	width: 100%;
+.main .header {
+	background-color: var(--light-color);
+	display: flex;
+	justify-content: space-between;		
+	align-items: center;
 }
 
 /* Create and Edit Todo Form */
@@ -146,7 +163,15 @@ ul {
 	display: none;
 }
 
-/* Card */
+/* Cards */
+.cards-container {
+	padding: 1rem;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 20px;
+	grid-auto-rows: max-content;
+}
+
 .card {
     background-color: #fff;
     color: #333;
@@ -181,30 +206,5 @@ ul {
 	cursor: pointer;
 }
 
-/* Main */
-.main {
-	background-color: var(--light-color);
-	overflow-y: scroll;
-}
-
-.main::-webkit-scrollbar {
-	display: none;
-}
-
-.main .header {
-	background-color: var(--light-color);
-	display: flex;
-	justify-content: space-between;		
-	align-items: center;
-}
-
-/* Cards Container */
-.cards-container {
-	padding: 1rem;
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: 20px;
-	grid-auto-rows: max-content;
-}
 
 
