@@ -27,14 +27,6 @@ ul {
     list-style-type: none;
 }
 
-.project-wrapper {
-	display: grid;
-	grid-template-columns: 225px 1fr;
-	border-radius: 16px;
-	overflow: hidden;
-	height: 100%;
-}
-
 /* Utilities */
 .btn {
     display: inline-block;
@@ -53,6 +45,14 @@ ul {
 .btn-primary {
     background-color: var(--primary-color);
     color: #fff;
+}
+
+.project-wrapper {
+	display: grid;
+	grid-template-columns: 225px 1fr;
+	border-radius: 16px;
+	overflow: hidden;
+	height: 100%;
 }
 
 /* Header */
