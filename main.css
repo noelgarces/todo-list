@@ -41,7 +41,7 @@ body {
     background-color: var(--primary-color);
     color: var(--light-color);
     display: inline-block;
-    padding: 10px 30px;
+    padding: 12.50px 30px;
     cursor: pointer;
     border-radius: 5px;
     border: none;
@@ -81,7 +81,7 @@ body {
 
 /* Sidebar Form */
 .sidebar-form .form-control {
-    margin: 5px 0;
+    margin: 10px 0;
 }
 
 .sidebar-form input {
