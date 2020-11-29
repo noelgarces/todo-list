@@ -9,7 +9,7 @@ By the end of this video, you will have a strong understanding of how to manipul
 
 [View Live Project](https://noel-garces08.github.io/TodoList/)
 
-![Todo List Application](https://i.imgur.com/0SLL32U.png)
+![Todo List Application](https://i.imgur.com/mtHMvFn.png)
 
 ## Steps To Success:
 ### Project setup and css reset
