@@ -246,4 +246,4 @@ function getRandomHexColor() {
     return `#${hex}`;
 }
 
-render();
+window.addEventListener('load', render);
