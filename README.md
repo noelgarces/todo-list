@@ -11,20 +11,6 @@ In this video, we will create a full CRUD Todo List Application using Local Stor
 
 By the end of this video, you will have a strong understanding of how to manipulate the DOM and a lot of JavaScript Basics.
 
-Process:
-- Create HTML and CSS.
-
-- Make add category form functional.
-
-- Render categories
-
-- Render categories into add todo form select options
-
-- Make add todo form functional.
-
-- Render todos with appropriate color from category
-
-- Add edit card functionality.
-
-- Add delete card functionality
+## Steps:
+ - 
 

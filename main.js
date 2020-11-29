@@ -34,18 +34,14 @@ let todos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_TODOS_KEY)) || [];
 newCategoryForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const categoryName = newCategoryInput.value;
-    const isCategoryEmpty = !categoryName || !categoryName.trim().length;
+    const category = newCategoryInput.value;
+    const isCategoryEmpty = !category || !category.trim().length;
 
     if (isCategoryEmpty) {
         return console.log('please enter a task');
     }
 
-    categories.push({
-        _id: Date.now().toString(),
-        category: categoryName,
-        color: getRandomHexColor()
-    });
+    categories.push({ _id: Date.now().toString(), category: category, color: getRandomHexColor() });
 
     newCategoryInput.value = '';
 
@@ -84,8 +80,11 @@ categoriesContainer.addEventListener('change', (e) => {
 currentlyViewing.addEventListener('click', (e) => {
     if (e.target.tagName.toLowerCase() === 'span') {
         categories = categories.filter((category) => category._id !== selectedCategoryId);
+
         todos = todos.filter((todo) => todo.categoryId !== selectedCategoryId);
+
         selectedCategoryId = null;
+        
         saveAndRender();
     }
 });
@@ -172,49 +171,25 @@ function render() {
         currentlyViewing.innerHTML = `You are currently viewing <strong>All Categories</strong>`;
     } else {
         const currentCategory = categories.find((category) => category._id === selectedCategoryId);
-        currentlyViewing.innerHTML = `You are currently viewing <strong>${currentCategory.category}</strong>
-		<span style="color: #e57373; cursor: pointer;">(delete)</span>`;
+        currentlyViewing.innerHTML = `You are currently viewing <strong>${currentCategory.category}</strong> <span style="color: #e57373; cursor: pointer;">(delete)</span>`;
     }
 }
 
 function renderCategories() {
-    categoriesContainer.innerHTML += `
-		<li 
-			class="sidebar-item" 
-			style="${selectedCategoryId === 'null' || selectedCategoryId === null ? 'font-weight: 600' : ''}" data-category-id=""
-		>
-			View All
-		</li>
+    categoriesContainer.innerHTML += `<li class="sidebar-item" style="${selectedCategoryId === 'null' || selectedCategoryId === null ? 'font-weight: 600' : ''}" data-category-id="">View All</li>
 	`;
 
-    categories.forEach(({
-        _id,
-        category,
-        color
-    }) => {
-        categoriesContainer.innerHTML += `
-		<li 
-			class="sidebar-item" 
-			style="${_id === selectedCategoryId ? 'font-weight: 600' : ''}" 
-			data-category-id=${_id}
-		>
-			${category}
-			<input class="sidebar-color" type="color" value=${color}>
-		</li>
-		`;
+    categories.forEach(({ _id, category, color }) => { 
+        categoriesContainer.innerHTML += ` <li class="sidebar-item" style="${_id === selectedCategoryId ? 'font-weight: 600' : ''}" data-category-id=${_id}>${category}<input class="sidebar-color" type="color" value=${color}></li>`;
     });
 }
 
 function renderFormOptions() {
-    // Create default option
+
     newTodoSelect.innerHTML += `<option value="">Select A Category</option>`;
     editTodoSelect.innerHTML += `<option value="">Select A Category</option>`;
 
-    // Creates dynamic options
-    categories.forEach(({
-        _id,
-        category
-    }) => {
+    categories.forEach(({ _id, category }) => {
         newTodoSelect.innerHTML += `<option value=${_id}>${category}</option>`;
         editTodoSelect.innerHTML += `<option value=${_id}>${category}</option>`;
     });
@@ -229,32 +204,22 @@ function renderTodos() {
     }
 
     // Render Todos
-    todosToRender.forEach(({
-        _id,
-        categoryId,
-        todo
-    }) => {
+    todosToRender.forEach(({ _id, categoryId, todo }) => {
 
         // Get Complimentary categoryDetails Based On TaskId
-        const {
-            color,
-            category
-        } = categories.find(({
-            _id
-        }) => _id === categoryId);
+        const { color, category } = categories.find(({ _id }) => _id === categoryId);
         const backgroundColor = convertHexToRGBA(color, 20);
         todosContainer.innerHTML += `
-			<div class="card" style="border-color: ${color}">
-					<div class="card-tag" style="background-color: ${backgroundColor}; color: ${color};">
+			<div class="todo" style="border-color: ${color}">
+					<div class="todo-tag" style="background-color: ${backgroundColor}; color: ${color};">
 						${category}
 					</div>
-					<p class="card-description">${todo}</p>
-					<div class="card-actions">
+					<p class="todo-description">${todo}</p>
+					<div class="todo-actions">
 						<i class="far fa-edit" data-edit-todo=${_id}></i>
 						<i class="far fa-trash-alt" data-delete-todo=${_id}></i>
 					</div>
-			</div>
-		`;
+			</div>`;
     });
 }
 
