@@ -7,7 +7,7 @@ In this video, we will create a full CRUD Todo List Application using Local Stor
 
 By the end of this video, you will have a strong understanding of how to manipulate the DOM and a lot of JavaScript Basics.
 
-[View Live Project](https://noel-garces08.github.io/TodoList/)
+[View Live Project](https://noel-garces08.github.io/todo_list/)
 
 ![Todo List Application](https://i.imgur.com/mtHMvFn.png)
 
