@@ -1,6 +1,6 @@
 // Selectors for new category form
 const newCategoryForm = document.querySelector('[data-new-category-form]');
-const newCategoryInput = document.querySelector('[data-new-category-input]')
+const newCategoryInput = document.querySelector('[data-new-category-input]');
 
 // Selector for categories container
 const categoriesContainer = document.querySelector('[data-categories]');
@@ -51,7 +51,6 @@ newCategoryForm.addEventListener('submit', (e) => {
 // EVENT: Get Selected Category Id
 categoriesContainer.addEventListener('click', (e) => {
     if (e.target.tagName.toLowerCase() === 'li') {
-
         if (!e.target.dataset.categoryId) {
             selectedCategoryId = null;
         } else {
@@ -67,7 +66,6 @@ categoriesContainer.addEventListener('change', (e) => {
     if (e.target.tagName.toLowerCase() === 'input') {
         const newCategoryColor = e.target.value;
         const categoryId = e.target.parentElement.dataset.categoryId;
-
         const categoryToEdit = categories.find((category) => category._id === categoryId);
 
         categoryToEdit.color = newCategoryColor;
@@ -84,7 +82,7 @@ currentlyViewing.addEventListener('click', (e) => {
         todos = todos.filter((todo) => todo.categoryId !== selectedCategoryId);
 
         selectedCategoryId = null;
-        
+
         saveAndRender();
     }
 });
@@ -92,7 +90,6 @@ currentlyViewing.addEventListener('click', (e) => {
 // EVENT: Add Todo
 newTodoForm.addEventListener('submit', (e) => {
     e.preventDefault();
-
     todos.push({
         _id: Date.now().toString(),
         categoryId: newTodoSelect.value,
@@ -109,8 +106,7 @@ newTodoForm.addEventListener('submit', (e) => {
 let todoToEdit = null;
 todosContainer.addEventListener('click', (e) => {
     if (e.target.classList[1] === 'fa-edit') {
-        newTodoForm.style.display = 'none'
-
+        newTodoForm.style.display = 'none';
         editTodoForm.style.display = 'flex';
 
         todoToEdit = todos.find((todo) => todo._id === e.target.dataset.editTodo);
@@ -128,7 +124,7 @@ todosContainer.addEventListener('click', (e) => {
 });
 
 // EVENT: Update The Todo Being Edited With New Values
-editTodoForm.addEventListener('submit', function(e) {
+editTodoForm.addEventListener('submit', function (e) {
     e.preventDefault();
 
     todoToEdit.categoryId = editTodoSelect.value;
@@ -171,7 +167,7 @@ function render() {
         currentlyViewing.innerHTML = `You are currently viewing <strong>All Categories</strong>`;
     } else {
         const currentCategory = categories.find((category) => category._id === selectedCategoryId);
-        currentlyViewing.innerHTML = `You are currently viewing <strong>${currentCategory.category}</strong> <span style="color: #e57373; cursor: pointer;">(delete)</span>`;
+        currentlyViewing.innerHTML = `You are currently viewing <strong>${currentCategory.category}</strong> <span>(delete)</span>`;
     }
 }
 
@@ -179,7 +175,7 @@ function renderCategories() {
     categoriesContainer.innerHTML += `<li class="sidebar-item" style="${selectedCategoryId === 'null' || selectedCategoryId === null ? 'font-weight: 600' : ''}" data-category-id="">View All</li>
 	`;
 
-    categories.forEach(({ _id, category, color }) => { 
+    categories.forEach(({ _id, category, color }) => {
         categoriesContainer.innerHTML += ` <li class="sidebar-item" style="${_id === selectedCategoryId ? 'font-weight: 600' : ''}" data-category-id=${_id}>${category}<input class="sidebar-color" type="color" value=${color}></li>`;
     });
 }
