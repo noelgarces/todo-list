@@ -75,6 +75,7 @@ body {
 }
 
 .currently-viewing > span {
+    font-weight: bold;
     color: #e57373;
     cursor: pointer;
 }
@@ -115,7 +116,7 @@ body {
 }
 
 .sidebar-item.active {
-    font-weight: 700;
+    font-weight: bold;
 }
 
 .sidebar-item:first-child {
