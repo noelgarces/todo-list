@@ -74,6 +74,11 @@ body {
     font-size: 1.5rem;
 }
 
+.currently-viewing > span {
+    color: #e57373;
+    cursor: pointer;
+}
+
 /* Sidebar Form */
 .form-control {
     margin: 5px 0;
@@ -190,12 +195,14 @@ body {
 }
 
 .todo-tag {
+    font-size: 1.6rem;
     padding: .5rem 2.5rem;
     border-radius: 5px;
     margin-bottom: 8px;
 }
 
 .todo-description {
+    font-size: 1.6rem;
     margin: 1rem 0 2rem 0;
     word-break: break-all;
 }
@@ -205,6 +212,7 @@ body {
 }
 
 .todo-actions i {
+    font-size: 1.6rem;
     margin-right: 1.6rem;
     opacity: 0.25;
     cursor: pointer;
