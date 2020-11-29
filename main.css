@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
 
 /* Base */
 :root {
@@ -112,6 +112,10 @@ body {
     margin: 16px 0;
     cursor: pointer;
     font-size: 1.75rem;
+}
+
+.sidebar-item.active {
+    font-weight: 700;
 }
 
 .sidebar-item:first-child {

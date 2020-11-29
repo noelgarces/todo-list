@@ -172,11 +172,11 @@ function render() {
 }
 
 function renderCategories() {
-    categoriesContainer.innerHTML += `<li class="sidebar-item" style="${selectedCategoryId === 'null' || selectedCategoryId === null ? 'font-weight: 600' : ''}" data-category-id="">View All</li>
+    categoriesContainer.innerHTML += `<li class="sidebar-item ${selectedCategoryId === 'null' || selectedCategoryId === null ? 'active' : ''}" data-category-id="">View All</li>
 	`;
 
     categories.forEach(({ _id, category, color }) => {
-        categoriesContainer.innerHTML += ` <li class="sidebar-item" style="${_id === selectedCategoryId ? 'font-weight: 600' : ''}" data-category-id=${_id}>${category}<input class="sidebar-color" type="color" value=${color}></li>`;
+        categoriesContainer.innerHTML += ` <li class="sidebar-item ${_id === selectedCategoryId ? 'active' : ''}" data-category-id=${_id}>${category}<input class="sidebar-color" type="color" value=${color}></li>`;
     });
 }
 
