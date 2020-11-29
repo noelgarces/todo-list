@@ -80,7 +80,7 @@ body {
 }
 
 /* Sidebar Form */
-.form-control {
+.sidebar-form .form-control {
     margin: 5px 0;
 }
 
@@ -164,7 +164,7 @@ body {
 .create-todo-form, .edit-todo-form {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     flex: .8;
 }
 
